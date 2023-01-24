@@ -19,9 +19,26 @@ class TasksController < ApplicationController
     redirect_to task_path(task)
   end
 
+  def edit
+    @task = @task = Task.find(params[:id])
+  end
+
+  def update
+    @task = Task.find(params[:id])
+    @pet.update(task_params)
+  end
+
+  def destroy
+    @task = Task.find(params[:id])
+    @task.destroy
+    redirect_to task_path, status: :see_other #because we delited the pet,
+    # we need to redirect to the index
+  end
+
   private
 
   def task_params
+    # :task is the model name
     params.require(:task).permit(:title, :details, :completed)
   end
 end
